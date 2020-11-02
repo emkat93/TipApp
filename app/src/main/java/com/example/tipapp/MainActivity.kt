@@ -9,7 +9,6 @@ import android.widget.TextView
 import java.text.DecimalFormat
 
 class MainActivity : AppCompatActivity() {
-    val tipForMeal = 1.50
     var numberofMeal: Int = 0
     var totalCalculate: Double = 0.00
     var tipChoice = ""
@@ -24,10 +23,12 @@ class MainActivity : AppCompatActivity() {
         val result: TextView = findViewById(R.id.txtResult)
 
         calculate.setOnClickListener {
+            var percent = .05
+            var totalPercentage = percent * (1 + group.selectedItemPosition)
             numberofMeal = meals.text.toString().toInt()
             val currency = DecimalFormat("$###,###.00")
             tipChoice = group.selectedItem.toString()
-            totalCalculate = tipForMeal * numberofMeal.toDouble()
+            totalCalculate = (totalPercentage * numberofMeal) + numberofMeal.toDouble()
             val totalCalculateFormatted = currency.format(totalCalculate)
 
             result.text = "Cost for meal with a tip of $tipChoice for a meal costing $$numberofMeal is a total $totalCalculateFormatted"
